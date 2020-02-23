@@ -1,6 +1,6 @@
 using System;
 
-namespace HotelReservationsManager.Models
+namespace BalkanTourist
 {
     public class ErrorViewModel
     {
