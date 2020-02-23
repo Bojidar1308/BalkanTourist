@@ -11,26 +11,26 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BalkanTourist.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles="Admin")]
     public class UsersController : Controller
     {
         private readonly CodeFirstContext _context;
-        private readonly UserManager<User> userManager;
+        //private readonly UserManager<User> userManager;
 
         public UsersController(CodeFirstContext context)
         {
             _context = context;
         }
 
-        public UsersController(UserManager<User> userManager)
-        {
-            this.userManager = userManager;
-        }
+        //public UsersController(UserManager<User> userManager)
+        //{
+        //    this.userManager = userManager;
+        //}
 
         // GET: Rooms
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            return View(await _context.Useri.ToListAsync());
         }
 
         // GET: Rooms/Details/5
@@ -41,7 +41,7 @@ namespace BalkanTourist.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
+            var user = await _context.Useri
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {
@@ -68,7 +68,6 @@ namespace BalkanTourist.Controllers
             {
                 _context.Add(user);
                 await _context.SaveChangesAsync();
-                await userManager.AddToRoleAsync(user, "User");
                 return RedirectToAction(nameof(Index));
             }
             return View(user);
@@ -82,7 +81,7 @@ namespace BalkanTourist.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Useri.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -133,7 +132,7 @@ namespace BalkanTourist.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
+            var user = await _context.Useri
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {
@@ -148,15 +147,15 @@ namespace BalkanTourist.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var user = await _context.Users.FindAsync(id);
-            _context.Users.Remove(user);
+            var user = await _context.Useri.FindAsync(id);
+            _context.Useri.Remove(user);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool UserExists(string id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Useri.Any(e => e.Id == id);
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BalkanTourist;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BalkanTourist.Controllers
 {
@@ -49,7 +50,7 @@ namespace BalkanTourist.Controllers
         public IActionResult Create()
         {
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Id");
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["UserID"] = new SelectList(_context.Useri, "Id", "Id");
             return View();
         }
 
@@ -67,7 +68,7 @@ namespace BalkanTourist.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Id", reservation.RoomId);
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id", reservation.UserID);
+            ViewData["UserID"] = new SelectList(_context.Useri, "Id", "Id", reservation.UserID);
             return View(reservation);
         }
 
@@ -85,7 +86,7 @@ namespace BalkanTourist.Controllers
                 return NotFound();
             }
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Id", reservation.RoomId);
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id", reservation.UserID);
+            ViewData["UserID"] = new SelectList(_context.Useri, "Id", "Id", reservation.UserID);
             return View(reservation);
         }
 
@@ -122,7 +123,7 @@ namespace BalkanTourist.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Id", reservation.RoomId);
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id", reservation.UserID);
+            ViewData["UserID"] = new SelectList(_context.Useri, "Id", "Id", reservation.UserID);
             return View(reservation);
         }
 

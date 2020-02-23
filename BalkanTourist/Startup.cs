@@ -28,7 +28,8 @@ namespace BalkanTourist
             services.AddControllersWithViews();
             services.AddDbContext<CodeFirstContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<CodeFirstContext>();
+                .AddEntityFrameworkStores<CodeFirstContext>().AddDefaultTokenProviders();
+            
         }
         private async Task CreateRoles(IServiceProvider serviceProvider)
         {
@@ -50,7 +51,7 @@ namespace BalkanTourist
             //    Email = Configuration.GetSection("UserSettings")["UserEmail"]
             //};
             //string UserPassword = Configuration.GetSection("UserSettings")["UserPassword"];
-            var _user = await UserManager.FindByEmailAsync("admin@admin.com");
+            var _user = await UserManager.FindByEmailAsync("admin@gmail.com");
             if (_user != null)
             {
                     await UserManager.AddToRoleAsync(_user, "Admin");
@@ -81,7 +82,7 @@ namespace BalkanTourist
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Register}/{action=Registerogin}");
+                    pattern: "{controller=Account}/{action=Login}");
             });
         }
     }

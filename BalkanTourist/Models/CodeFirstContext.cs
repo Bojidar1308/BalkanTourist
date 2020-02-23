@@ -15,6 +15,7 @@ namespace BalkanTourist
         {
             ; ;
         }
+        public virtual DbSet<User> Useri { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }

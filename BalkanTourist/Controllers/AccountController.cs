@@ -39,7 +39,7 @@ namespace BalkanTourist.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Reservations");
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");

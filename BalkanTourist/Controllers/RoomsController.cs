@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BalkanTourist.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class RoomsController : Controller
     {
         private readonly CodeFirstContext _context;
