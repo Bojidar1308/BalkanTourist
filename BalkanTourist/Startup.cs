@@ -29,34 +29,39 @@ namespace BalkanTourist
             services.AddDbContext<CodeFirstContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<CodeFirstContext>().AddDefaultTokenProviders();
-            
-        }
-        private async Task CreateRoles(IServiceProvider serviceProvider)
-        {
-            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var UserManager = serviceProvider.GetRequiredService<UserManager<User>>();
-            string[] roleNames = { "Admin", "User" };
-            IdentityResult roleResult;
-            foreach (var roleName in roleNames)
+            services.ConfigureApplicationCookie( config =>
             {
-                var roleExist = await RoleManager.RoleExistsAsync(roleName);
-                if (!roleExist)
-                {
-                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
-                }
-            }
-            //var poweruser = new User
-            //{
-            //    UserName = Configuration.GetSection("UserSettings")["UserEmail"],
-            //    Email = Configuration.GetSection("UserSettings")["UserEmail"]
-            //};
-            //string UserPassword = Configuration.GetSection("UserSettings")["UserPassword"];
-            var _user = await UserManager.FindByEmailAsync("admin@gmail.com");
-            if (_user != null)
-            {
-                    await UserManager.AddToRoleAsync(_user, "Admin");
-            }
+                config.Cookie.Name = "Identity.Cookie";
+                config.LoginPath = "";
+            });
+            services.AddSession();
         }
+        //private async Task CreateRoles(IServiceProvider serviceProvider)
+        //{
+        //    var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        //    var UserManager = serviceProvider.GetRequiredService<UserManager<User>>();
+        //    string[] roleNames = { "Admin", "User" };
+        //    IdentityResult roleResult;
+        //    foreach (var roleName in roleNames)
+        //    {
+        //        var roleExist = await RoleManager.RoleExistsAsync(roleName);
+        //        if (!roleExist)
+        //        {
+        //            roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+        //        }
+        //    }
+        //    var poweruser = new User
+        //    {
+        //        UserName = Configuration.GetSection("UserSettings")["UserEmail"],
+        //        Email = Configuration.GetSection("UserSettings")["UserEmail"]
+        //    };
+        //    string UserPassword = Configuration.GetSection("UserSettings")["UserPassword"];
+        //    var _user = await UserManager.FindByEmailAsync("admin@gmail.com");
+        //    if (_user != null)
+        //    {
+        //            await UserManager.AddToRoleAsync(_user, "Admin");
+        //    }
+        //}
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
@@ -70,13 +75,14 @@ namespace BalkanTourist
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            CreateRoles(serviceProvider).Wait();
+            //CreateRoles(serviceProvider).Wait();
 
             app.UseEndpoints(endpoints =>
             {

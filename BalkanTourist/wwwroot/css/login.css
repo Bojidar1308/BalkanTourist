@@ -1,0 +1,133 @@
+﻿body {
+    background-image: url("../assets/login-background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+}
+
+.login-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-color: transparent;
+}
+
+.login-wrap {
+    width: 560px;
+    background: #fff;
+    border-radius: 10px;
+    position: relative;
+}
+
+.login-form {
+    width: 100%;
+}
+
+.login-wrap-title {
+    font-family: sans-serif;
+    font-size: 30px;
+    color: #555555;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-align: left;
+    width: 100%;
+    display: block;
+}
+
+.login-wrap-text {
+    font-family: sans-serif;
+    font-size: 13px;
+    color: #555555;
+    line-height: 1.4;
+    text-transform: uppercase;
+}
+
+.login-wrap-input {
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #E6E6E6;
+    border-radius: 2px;
+}
+
+.input-holder {
+    font-family: sans-serif;
+    color: #555555;
+    line-height: 1.2;
+    font-size: 18px;
+    display: block;
+    width: 100%;
+    background: transparent;
+    height: 55px;
+    padding: 0 25px 0 25px;
+}
+
+input {
+    outline: none;
+    border: none;
+}
+
+.container-login-button {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.login-button {
+    font-family: sans-serif;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    min-width: 150px;
+    height: 55px;
+    background-color: #333333;
+    border-radius: 27px;
+}
+
+
+.p-r-85 {
+    padding-right: 85px;
+}
+
+.p-1-85 {
+    padding-left: 85px;
+}
+
+.p-b-55 {
+    padding-bottom: 55px;
+}
+
+.p-t-55 {
+    padding-top: 55px;
+}
+
+.p-b-32 {
+    padding-bottom: 32px;
+}
+
+.p-b-11 {
+    padding-bottom: 11px;
+}
+
+.m-b-36 {
+    margin-bottom: 36px;
+}

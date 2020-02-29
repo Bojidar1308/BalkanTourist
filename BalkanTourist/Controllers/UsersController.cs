@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BalkanTourist.Controllers
 {
-    [Authorize(Roles="Admin")]
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private readonly CodeFirstContext _context;

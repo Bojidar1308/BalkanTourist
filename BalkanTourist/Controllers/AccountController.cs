@@ -9,18 +9,20 @@ namespace BalkanTourist.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
 
-        public AccountController(SignInManager<User> signInManager)
+        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager)
         {
             this.signInManager = signInManager;
+            this.userManager = userManager;
         }
 
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
-            return RedirectToAction("index");
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpGet]
@@ -30,22 +32,19 @@ namespace BalkanTourist.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(string username, string password)
         {
-            if (ModelState.IsValid)
+            var user = await this.userManager.FindByNameAsync(username);
+            if (user != null)
             {
-                var result = await signInManager.PasswordSignInAsync(
-                    model.Email, model.Password, model.RememberMe, false);
-
-                if (result.Succeeded)
+                //sign in
+                var signInResult = await this.signInManager.PasswordSignInAsync(user, password, false, false);
+                if (signInResult.Succeeded)
                 {
                     return RedirectToAction("Index", "Reservations");
                 }
-
-                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
             }
-
-            return View(model);
+            return RedirectToAction("Login", "Account");
         }
     }
 }

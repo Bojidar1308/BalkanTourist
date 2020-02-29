@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BalkanTourist.Controllers
 {
+    [Authorize(Roles= "Admin")]
     public class RoomsController : Controller
     {
         private readonly CodeFirstContext _context;
@@ -20,6 +21,7 @@ namespace BalkanTourist.Controllers
         }
 
         // GET: Rooms
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Rooms.ToListAsync());
